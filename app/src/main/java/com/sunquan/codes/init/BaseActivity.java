@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import com.sunquan.codes.R;
 import sunquan.com.common.utils.Check;
 import sunquan.com.common.utils.PermissionUtil;
 import sunquan.com.common.utils.statusbar.StatusBarUtil;
@@ -34,7 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //透明状态栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         statusBarHeight = StatusBarUtil.getStatusBarHeight(this);
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
@@ -43,10 +44,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (isTranslucent) {
-            StatusBarUtil.translucent(this, Color.TRANSPARENT); // 沉浸式状态栏
-        }
-        StatusBarUtil.setStatusTextBlack(this);
+        StatusBarUtil.setStatusBarColor(getWindow(), getResources().getColor(R.color.status_bar));
+        StatusBarUtil.setStatusTextWhite(this);
         startInit();
         compatFontSize();
     }

@@ -51,6 +51,21 @@ public class StatusBarUtil {
         decorView.setSystemUiVisibility(uiOptions);
     }
 
+    public static void setStatusBarColor(Window window, int color) {
+        if (checkNull(window)) {
+            return;
+        }
+        showStatusBar(window);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int uiOptions = window.getDecorView().getSystemUiVisibility();
+            uiOptions |= View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            uiOptions |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+            window.getDecorView().setSystemUiVisibility(uiOptions);
+            window.setStatusBarColor(color);
+        }
+    }
+
     public static void showStatusBar(Window window) {
         if (!checkNull(window)) {
             View decorView = window.getDecorView();
