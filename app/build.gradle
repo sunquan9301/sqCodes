@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    defaultConfig {
+        applicationId "com.sunquan.codes"
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+        versionCode APP_VERSION_CODE as int
+        versionName APP_VERSION_NAME
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        resConfigs "zh"
+
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+        }
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    implementation LIB_SUPPORT_SUPPORT_V4
+    implementation LIB_SUPPORT_COMPAT_V7
+
+    testImplementation LIB_TEST_JUNIT
+    androidTestImplementation LIB_TEST_RUNNER
+    androidTestImplementation LIB_TEST_ESPRESSO
+
+    implementation LIB_SUPPORT_RECYCLERVIEW
+    implementation LIB_SUPPORT_DESIGN
+    implementation LIB_SUPPORT_ANNOTATIONS
+    implementation LIB_SUPPORT_MULTIDEX
+
+
+    implementation LIB_KOTLIN_COROUTINE
+    implementation LIB_KOTLINX_COROUTINES_CORE
+    implementation LIB_KOTLINX_COROUTINES_ANDROID
+    implementation LIB_KOTLINX_EXTENSIONS
+
+    debugImplementation LIB_LEAKCANARY
+
+    implementation project(':common')
+
+
+}
